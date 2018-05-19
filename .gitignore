@@ -21,3 +21,7 @@ ios
 
 src/.DS_Store
 .DS_Store
+
+package-lock.json
+
+android/app/build.gradle
