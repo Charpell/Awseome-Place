@@ -6,10 +6,24 @@ import PlaceList from '../../components/PlaceList/PlaceList';
 
 
 class FindPlace extends Component {
+  itemSelectedHandeler = key => {
+    const selPlace = this.props.places.find(place => {
+      return place.key === key;
+    });
+
+    this.props.navigator.push({
+      screen: "awesome-places.PlaceDetailScreen",
+      title: selPlace.name,
+      passProps: {
+        selectedPlace: selPlace
+      }
+    })
+  }
+
   render() {
     return(
       <View>
-        <PlaceList places={this.props.places} />
+        <PlaceList places={this.props.places} onItemSelected={this.itemSelectedHandeler} />
       </View>
     )
   }
