@@ -1,21 +1,32 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { View, Image, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 
-const placeDetail = (props) => {
-  return (
+import { deletePlace } from '../../store/actions/index'
+
+import { connect } from 'react-redux';
+
+class PlaceDetail extends Component {
+  placeDeletedHandler = () => {
+    this.props.onDeletePlace(this.props.selectedPlace.key)
+    this.props.navigator.pop();
+  }
+
+  render() {
+    return (
       <View style={styles.container}>
-          <Image source={props.selectedPlace.image} style={styles.placeImage} />
-          <Text style={styles.placeName}>{props.selectedPlace.name}</Text>
+          <Image source={this.props.selectedPlace.image} style={styles.placeImage} />
+          <Text style={styles.placeName}>{this.props.selectedPlace.name}</Text>
         <View>
-          <TouchableOpacity onPress={props.onItemDeleted}>
+          <TouchableOpacity onPress={this.placeDeletedHandler}>
             <View style={styles.deleteButton}>
               <Icon size={30} name="ios-trash" color="red" />
             </View>
           </TouchableOpacity>
         </View>
       </View>
-  )
+    )
+  }
 };
 
 const styles = StyleSheet.create({
@@ -36,4 +47,10 @@ const styles = StyleSheet.create({
   }
 });
 
-export default placeDetail;
+const mapDispatchToProps = dispatch => {
+  return {
+    onDeletePlace: (key) => dispatch(deletePlace(key))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(PlaceDetail);
