@@ -1,0 +1,3 @@
+Template for Different Platform
+
+Platform.OS === 'android' ? "md-log-out" : "ios-log-out"
